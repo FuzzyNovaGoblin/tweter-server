@@ -16,5 +16,8 @@
     "url": "https://github.com/FuzzyNovaGoblin/twater-server/issues"
   },
   "homepage": "https://github.com/FuzzyNovaGoblin/twater-server#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
