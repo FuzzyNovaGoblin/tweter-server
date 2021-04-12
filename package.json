@@ -1,5 +1,5 @@
 {
-  "name": "twater-server",
+  "name": "tweter-server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FuzzyNovaGoblin/twater-server.git"
+    "url": "git+https://github.com/FuzzyNovaGoblin/tweter-server.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/FuzzyNovaGoblin/twater-server/issues"
+    "url": "https://github.com/FuzzyNovaGoblin/tweter-server/issues"
   },
-  "homepage": "https://github.com/FuzzyNovaGoblin/twater-server#readme",
+  "homepage": "https://github.com/FuzzyNovaGoblin/tweter-server#readme",
   "description": "",
   "dependencies": {
     "express": "^4.17.1",
