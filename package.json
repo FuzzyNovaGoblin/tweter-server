@@ -1,24 +1,31 @@
 {
-  "name": "tweter-server",
-  "version": "1.0.0",
+  "name": "tweter",
+  "version": "1.2.0",
+  "description": "like Twitter but bad",
+  "license": "MIT",
+  "author": "FuzzyNovaGoblin <fuzzy.nova.goblin@outlook.com>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FuzzyNovaGoblin/tweter-server.git"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "lint": "eslint --fix src",
+    "test": "mocha --exit"
   },
   "keywords": [],
-  "bugs": {
-    "url": "https://github.com/FuzzyNovaGoblin/tweter-server/issues"
-  },
-  "homepage": "https://github.com/FuzzyNovaGoblin/tweter-server#readme",
-  "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "path": "^0.12.7"
+    "helmet": "^4.4.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }
