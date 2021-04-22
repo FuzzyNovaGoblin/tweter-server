@@ -6,7 +6,7 @@ const mysqlcon = require('./../dataconnector')
 
 
 router.get('/retweet/:PID', async (req, res) => {
-   let sql = `SELECT tweet.text, user.uname, post.time FROM post join tweet on post.PID = tweet.PID join user on post.UID = user.UID where post.PID = ${req.params.PID}`;
+   let sql = `SELECT retweet.*, user.uname, post.time FROM post join retweet on post.PID = retweet.PID join user on post.UID = user.uid where post.PID  = ${req.params.PID}`;
 
    mysqlcon.query(sql, function (err, result, fields) {
       if (err) {

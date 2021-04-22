@@ -10,10 +10,6 @@ const sqlcon = mysql.createConnection({
 sqlcon.connect(function (err) {
    if (err) throw err;
    console.log("Connected!");
-   // sqlcon.query("SELECT * FROM post;", function (err, result) {
-   //    if (err) throw err;
-   //    console.log("Result: " + result[0][0]);
-   // });
 });
 
 module.exports = sqlcon;

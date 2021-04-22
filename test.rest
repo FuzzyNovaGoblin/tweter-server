@@ -18,12 +18,12 @@
 # ###
 
 
-# POST http://127.0.0.1:5000/api/sql/retweet
-# Content-Type: application/json
+POST http://127.0.0.1:5000/api/sql/retweet
+Content-Type: application/json
 
-# {"UID":1,"original_post_id":55}
+{"UID":1,"original_post_id":55}
 
-# ###
+###
 
 # POST http://127.0.0.1:5000/api/sql/follow
 # Content-Type: application/json
@@ -37,5 +37,9 @@
 # ###
 
 GET http://127.0.0.1:5000/api/sql/tweet/100
+
+###
+
+GET http://127.0.0.1:5000/api/sql/retweet/126
 
 ###
