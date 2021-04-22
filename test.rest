@@ -1,0 +1,20 @@
+GET http://127.0.0.1:5000/api/sql
+
+###
+
+GET http://127.0.0.1:5000/api/sql/60785b08bfde904cdb997695
+
+
+###
+
+
+POST http://127.0.0.1:5000/api/sql/newuser
+Content-Type: application/json
+
+{"UNAME":"username2","UFN":"Jhon","ULN":"Smith","pass_hash":"uftu3","email":"example@email.com"}
+
+###
+
+DELETE  http://127.0.0.1:5000/api/sql/607862576ac8f860a83381e0
+
+###
