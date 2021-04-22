@@ -16,17 +16,23 @@ router.get('/', async (req, res) => {
    });
 });
 
-router.get('/post/:id', getListingByID, (req, res) => {
+/*  router.get('/post/:PID', getListingByID, (req, res) => {
+    // res.status(200).json(res.listing)
+    // res.status(200).json(res.l)
+  });
+*/
+
+router.get('/tweet/:PID', getListingByID, (req, res) => {
    // res.status(200).json(res.listing)
    // res.status(200).json(res.l)
 });
 
-router.get('/tweet/:id', getListingByID, (req, res) => {
+router.get('/retweet/:PID', getListingByID, (req, res) => {
    // res.status(200).json(res.listing)
    // res.status(200).json(res.l)
 });
 
-router.get('/retweet/:id', getListingByID, (req, res) => {
+router.get('/timeline/:UID', getListingByID, (req, res) => {
    // res.status(200).json(res.listing)
    // res.status(200).json(res.l)
 });
@@ -39,7 +45,6 @@ router.post('/newuser', async (req, res) => {
 
       //check if user exists
       let sql1 = `SELECT UID FROM user WHERE UNAME = '${req.body.UNAME}'`;
-      console.log(sql1);
       mysqlcon.query(sql1, function (err, result, fields) {
          if (err) {
             res.status(400).json({ err: err });
@@ -79,14 +84,83 @@ router.post('/newuser', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/tweet', async (req, res) => {
    try {
-      const listing = new Listing({ name: req.body.name, count: req.body.count });
-      const newListing = await listing.save();
+      let sql1 = `INSERT INTO post (UID, post_type_id, time) VALUES ('${req.body.UID}', 0, NOW())`;
+      mysqlcon.query(sql1, function (err, result) {
+         if (err) {
+            res.status(400).json({ err: err });
+         }
+         else {
+            //add user
+            let PID = result.insertId;
+            let sql2 = `INSERT INTO tweet (PID, text) VALUES (${PID},'${req.body.text}')`;
+            mysqlcon.query(sql2, function (err, result) {
+               if (err) {
+                  res.status(400).json({ err: err });
+               }
+               else {
+                  console.log("post added");
+                  console.log(result);
+                  res.status(201).json({ PID: PID })
+               }
+            });
+         }
+      });
       res.status(201).json(newListing);
    }
    catch {
-      res.status(400);
+      res.status(500);
+   }
+});
+
+router.post('/retweet', async (req, res) => {
+   try {
+      let sql1 = `INSERT INTO post (UID, post_type_id, time) VALUES ('${req.body.UID}', 1, NOW())`;
+      mysqlcon.query(sql1, function (err, result) {
+         if (err) {
+            res.status(400).json({ err: err });
+         }
+         else {
+            //add user
+            let PID = result.insertId;
+            let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
+            mysqlcon.query(sql2, function (err, result) {
+               if (err) {
+                  res.status(400).json({ err: err });
+               }
+               else {
+                  console.log("post added");
+                  console.log(result);
+                  res.status(201).json({ PID: PID })
+               }
+            });
+         }
+      });
+      res.status(201).json(newListing);
+   }
+   catch {
+      res.status(500);
+   }
+});
+
+
+router.post('/follow', async (req, res) => {
+   try {
+      let sql1 = `INSERT INTO follow (follower_id, followed_id) VALUES ('${req.body.follower_id}','${req.body.followed_id}')`;
+      mysqlcon.query(sql1, function (err, result) {
+         if (err) {
+            res.status(400).json({ err: err });
+         }
+         else {
+            // let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
+            res.status(201);
+         }
+      });
+      res.status(201).json(newListing);
+   }
+   catch {
+      res.status(500);
    }
 });
 
@@ -104,7 +178,6 @@ router.delete('/:id', getListingByID, async (req, res) => {
       res.status(500).json()
    }
 });
-
 
 async function getListingByID(req, res, next) {
    let listing;
