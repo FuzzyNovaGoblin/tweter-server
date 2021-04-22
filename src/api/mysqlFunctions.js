@@ -1,44 +1,55 @@
 const express = require('express');
 const router = express.Router();
-// const Listing = require('../models/listing');
 const mysqlcon = require('./../dataconnector')
 
 
 
 
-router.get('/', async (req, res) => {
-   console.log(mysqlcon);
-   mysqlcon.query("SELECT * FROM user;", function (err, result, fields) {
-      if (err) throw err;
-      result.forEach(element => {
-         console.log(element);
-      });
+router.get('/retweet/:PID', async (req, res) => {
+   let sql = `SELECT tweet.text, user.uname, post.time FROM post join tweet on post.PID = tweet.PID join user on post.UID = user.UID where post.PID = ${req.params.PID}`;
+
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+
+         res.status(200).json(result)
+
+      }
    });
 });
 
-/*  router.get('/post/:PID', getListingByID, (req, res) => {
-    // res.status(200).json(res.listing)
-    // res.status(200).json(res.l)
-  });
-*/
+router.get('/tweet/:PID', async (req, res) => {
+   let sql = `SELECT tweet.text, user.uname, post.time FROM post join tweet on post.PID = tweet.PID join user on post.UID = user.UID where post.PID = ${req.params.PID}`;
 
-router.get('/tweet/:PID', getListingByID, (req, res) => {
-   // res.status(200).json(res.listing)
-   // res.status(200).json(res.l)
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+
+         res.status(200).json(result)
+
+      }
+   });
 });
 
-router.get('/retweet/:PID', getListingByID, (req, res) => {
-   // res.status(200).json(res.listing)
-   // res.status(200).json(res.l)
+router.get('/timeline/:UID',  async (req, res) => {
+
+
+   let sql = `SELECT PID, post_type_id FROM user JOIN follow ON user.UID = follow.follower_id JOIN post ON follow.followed_id = post.UID WHERE user.UID = ${req.params.UID} ORDER BY post.time`;
+
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+         res.status(200).json({posts:result})
+      }
+   });
+
 });
-
-router.get('/timeline/:UID', getListingByID, (req, res) => {
-   // res.status(200).json(res.listing)
-   // res.status(200).json(res.l)
-});
-
-
-
 
 router.post('/newuser', async (req, res) => {
    try {
@@ -164,34 +175,21 @@ router.post('/follow', async (req, res) => {
    }
 });
 
-router.patch('/:id', async (req, getListingByID, res) => {
+// router.patch('/:id', async (req, getListingByID, res) => {
 
-   res.send('hello World!');
-});
+//    res.send('hello World!');
+// });
 
-router.delete('/:id', getListingByID, async (req, res) => {
-   try {
-      await res.listing.remove();
-      res.status(500).json({ messege: `Deleted ${res.listing}` })
+// router.delete('/:id', getListingByID, async (req, res) => {
+//    try {
+//       await res.listing.remove();
+//       res.status(500).json({ messege: `Deleted ${res.listing}` })
 
-   } catch (error) {
-      res.status(500).json()
-   }
-});
+//    } catch (error) {
+//       res.status(500).json()
+//    }
+// });
 
-async function getListingByID(req, res, next) {
-   let listing;
-   try {
-      listing = await Listing.findById(req.params.id);
-      if (listing == null) {
-         return res.status(404).json({ messege: "cannot find item" });
-      }
-   } catch (err) {
-      res.status(500).json(err.messege)
-   }
-   res.listing = listing;
-   next();
-}
 
 
 module.exports = router;

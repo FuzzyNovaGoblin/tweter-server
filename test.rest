@@ -2,11 +2,6 @@
 
 # ###
 
-# GET http://127.0.0.1:5000/api/sql/60785b08bfde904cdb997695
-
-
-# ###
-
 
 # POST http://127.0.0.1:5000/api/sql/newuser
 # Content-Type: application/json
@@ -23,16 +18,24 @@
 # ###
 
 
-POST http://127.0.0.1:5000/api/sql/retweet
-Content-Type: application/json
+# POST http://127.0.0.1:5000/api/sql/retweet
+# Content-Type: application/json
 
-{"UID":1,"original_post_id":55}
+# {"UID":1,"original_post_id":55}
 
-###
+# ###
 
-POST http://127.0.0.1:5000/api/sql/follow
-Content-Type: application/json
+# POST http://127.0.0.1:5000/api/sql/follow
+# Content-Type: application/json
 
-{"follower_id":1,"followed_id":1}
+# {"follower_id":1,"followed_id":1}
+
+# ###
+
+# GET http://127.0.0.1:5000/api/sql/timeline/1
+
+# ###
+
+GET http://127.0.0.1:5000/api/sql/tweet/100
 
 ###
