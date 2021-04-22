@@ -1,21 +1,21 @@
-# GET http://127.0.0.1:5000/api/sql
+GET http://127.0.0.1:5000/api/sql
 
-# ###
+###
 
 
-# POST http://127.0.0.1:5000/api/sql/newuser
-# Content-Type: application/json
+POST http://127.0.0.1:5000/api/sql/newuser
+Content-Type: application/json
 
-# {"UNAME":"username2","UFN":"Jhon","ULN":"Smith","pass_hash":"uftu3","email":"example@email.com"}
+{"UNAME":"username2","UFN":"Jhon","ULN":"Smith","pass_hash":"uftu3","email":"example@email.com"}
 
-# ###
+###
 
-# POST http://127.0.0.1:5000/api/sql/tweet
-# Content-Type: application/json
+POST http://127.0.0.1:5000/api/sql/tweet
+Content-Type: application/json
 
-# {"UID":1,"text":"I just added somthing new text"}
+{"UID":1,"text":"I just added somthing new text"}
 
-# ###
+###
 
 
 POST http://127.0.0.1:5000/api/sql/retweet
@@ -25,16 +25,24 @@ Content-Type: application/json
 
 ###
 
-# POST http://127.0.0.1:5000/api/sql/follow
-# Content-Type: application/json
+POST http://127.0.0.1:5000/api/sql/follow
+Content-Type: application/json
 
-# {"follower_id":1,"followed_id":1}
+{"follower_id":1,"followed_id":5}
 
-# ###
+###
 
-# GET http://127.0.0.1:5000/api/sql/timeline/1
 
-# ###
+POST http://127.0.0.1:5000/api/sql/unfollow
+Content-Type: application/json
+
+{"follower_id":1,"followed_id":1}
+
+###
+
+GET http://127.0.0.1:5000/api/sql/timeline/1
+
+###
 
 GET http://127.0.0.1:5000/api/sql/tweet/100
 

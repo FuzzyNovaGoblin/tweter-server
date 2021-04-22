@@ -168,27 +168,46 @@ router.post('/follow', async (req, res) => {
             res.status(201);
          }
       });
-      res.status(201).json(newListing);
+      
    }
    catch {
       res.status(500);
    }
 });
 
-// router.patch('/:id', async (req, getListingByID, res) => {
+router.post('/unfollow', async (req, res) => {
+   try {
+      let sql1 = `DELETE from follow where follower_id = ${req.body.follower_id} and followed_id =${req.body.followed_id}`;
+      mysqlcon.query(sql1, function (err, result) {
+         if (err) {
+            res.status(400).json({ err: err });
+         }
+         else {
+            // let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
+            res.status(200);
+         }
+      });
+   }
+   catch {
+      res.status(500);
+   }
+});
 
-//    res.send('hello World!');
-// });
 
-// router.delete('/:id', getListingByID, async (req, res) => {
-//    try {
-//       await res.listing.remove();
-//       res.status(500).json({ messege: `Deleted ${res.listing}` })
+router.delete('/:PID', async (req, res) => {
 
-//    } catch (error) {
-//       res.status(500).json()
-//    }
-// });
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+
+         res.status(200).json(result)
+
+      }
+   });
+});
+
 
 
 
