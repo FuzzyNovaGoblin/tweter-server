@@ -165,10 +165,11 @@ router.post('/follow', async (req, res) => {
          }
          else {
             // let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
-            res.status(201);
+            res.status(201).send(`followed ${req.body.followed_id}`)
+               // .json({ followed_id: req.body.followed_id, follower_id: req.body.follower_id });
          }
       });
-      
+
    }
    catch {
       res.status(500);
@@ -184,7 +185,9 @@ router.post('/unfollow', async (req, res) => {
          }
          else {
             // let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
-            res.status(200);
+            res.status(201).send(`unfollowed ${req.body.followed_id}`)
+               // .json({ unfollowed_id: req.body.followed_id, unfollower_id: req.body.follower_id });
+
          }
       });
    }
