@@ -35,7 +35,7 @@ router.get('/tweet/:PID', async (req, res) => {
    });
 });
 
-router.get('/timeline/:UID',  async (req, res) => {
+router.get('/timeline/:UID', async (req, res) => {
 
 
    let sql = `SELECT PID, post_type_id FROM user JOIN follow ON user.UID = follow.follower_id JOIN post ON follow.followed_id = post.UID WHERE user.UID = ${req.params.UID} ORDER BY post.time`;
@@ -45,7 +45,29 @@ router.get('/timeline/:UID',  async (req, res) => {
          res.status(400).json({ err: err });
       }
       else {
-         res.status(200).json({posts:result})
+         res.status(200).json({ posts: result })
+      }
+   });
+
+});
+
+router.get('/auth/:uname/:pass', async (req, res) => {
+
+
+   let sql = `SELECT UID, pass_hash FROM user WHERE UNAME = '${req.params.uname}'`;
+
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+         console.log(result[0]);
+         if (result[0].pass_hash == req.params.pass) {
+            res.status(200).json(result[0].UID);
+         }
+         else {
+            res.status(401).send();
+         }
       }
    });
 
@@ -166,7 +188,7 @@ router.post('/follow', async (req, res) => {
          else {
             // let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
             res.status(201).send(`followed ${req.body.followed_id}`)
-               // .json({ followed_id: req.body.followed_id, follower_id: req.body.follower_id });
+            // .json({ followed_id: req.body.followed_id, follower_id: req.body.follower_id });
          }
       });
 
@@ -186,7 +208,7 @@ router.post('/unfollow', async (req, res) => {
          else {
             // let sql2 = `INSERT INTO retweet (PID, original_post_id) VALUES (${PID},'${req.body.original_post_id}')`;
             res.status(201).send(`unfollowed ${req.body.followed_id}`)
-               // .json({ unfollowed_id: req.body.followed_id, unfollower_id: req.body.follower_id });
+            // .json({ unfollowed_id: req.body.followed_id, unfollower_id: req.body.follower_id });
 
          }
       });

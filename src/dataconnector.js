@@ -2,8 +2,8 @@ var mysql = require('mysql');
 
 const sqlcon = mysql.createConnection({
    host: "127.0.0.1",
-   user: "monty",
-   password: "some_pass",
+   user: process.env.SQLUSER ||"monty",
+   password: process.env.SQLPASS ||"some_pass",
    database: "twater"
 });
 

@@ -1,4 +1,4 @@
-GET http://127.0.0.1:5000/api/sql
+GET http://127.0.0.1:5000/api/
 
 ###
 
@@ -6,7 +6,7 @@ GET http://127.0.0.1:5000/api/sql
 POST http://127.0.0.1:5000/api/sql/newuser
 Content-Type: application/json
 
-{"UNAME":"username2","UFN":"Jhon","ULN":"Smith","pass_hash":"uftu3","email":"example@email.com"}
+{"UNAME":"FuzzyNovaGoblin","UFN":"Grand","ULN":"Hedley","pass_hash":"qbtt","email":"fuzzy.nova.goblin@outlook.com"}
 
 ###
 
@@ -49,5 +49,70 @@ GET http://127.0.0.1:5000/api/sql/tweet/100
 ###
 
 GET http://127.0.0.1:5000/api/sql/retweet/126
+
+###
+
+GET http://127.0.0.1:5000/api/sql/auth/FuzzyNovaGoblin/qbtt
+
+###
+
+
+
+#################################
+
+
+
+GET http://23.254.244.168/api
+
+###
+
+
+
+POST http://23.254.244.168/api/sql/newuser
+Content-Type: application/json
+
+{"UNAME":"FuzzyNovaGoblin","UFN":"Grand","ULN":"Hedley","pass_hash":"qbtt","email":"fuzzy.nova.goblin@outlook.com"}
+
+###
+
+POST http://23.254.244.168/api/sql/tweet
+Content-Type: application/json
+
+{"UID":1,"text":"I just added somthing new"}
+
+###
+
+
+POST http://23.254.244.168/api/sql/retweet
+Content-Type: application/json
+
+{"UID":1,"original_post_id":55}
+
+###
+
+POST http://23.254.244.168/api/sql/follow
+Content-Type: application/json
+
+{"follower_id":1,"followed_id":5}
+
+###
+
+
+POST http://23.254.244.168/api/sql/unfollow
+Content-Type: application/json
+
+{"follower_id":1,"followed_id":1}
+
+###
+
+GET http://23.254.244.168/api/sql/timeline/1
+
+###
+
+GET http://23.254.244.168/api/sql/tweet/1
+
+###
+
+GET http://23.254.244.168/api/sql/retweet/126
 
 ###
