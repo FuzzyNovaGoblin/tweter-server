@@ -51,6 +51,18 @@ router.get('/timeline/:UID', async (req, res) => {
 
 });
 
+router.get('/allusers', async (req, res) => {
+   let sql = `SELECT UNAME, UID FROM user`;
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+         res.status(200).json(result)
+      }
+   });
+});
+
 router.get('/auth/:uname/:pass', async (req, res) => {
 
 
