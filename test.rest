@@ -32,6 +32,10 @@ Content-Type: application/json
 
 ###
 
+GET http://127.0.0.1:5001/api/sql/followers/1
+
+###
+
 
 POST http://127.0.0.1:5000/api/sql/unfollow
 Content-Type: application/json

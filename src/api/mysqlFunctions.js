@@ -35,6 +35,21 @@ router.get('/tweet/:PID', async (req, res) => {
    });
 });
 
+router.get('/followers/:UID', async (req, res) => {
+   let sql = `SELECT followed_id FROM follow WHERE follower_id = ${req.params.UID}`;
+
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+
+         res.status(200).json(result.map((f) => { return f.followed_id }))
+
+      }
+   });
+});
+
 router.get('/timeline/:UID', async (req, res) => {
 
 
