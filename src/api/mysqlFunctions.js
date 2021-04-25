@@ -74,7 +74,11 @@ router.get('/auth/:uname/:pass', async (req, res) => {
          }
          else {
             console.log(result[0]);
-            if (result[0].pass_hash == req.params.pass) {
+            if (result.length == 0) {
+               res.status(401).send();
+
+            }
+            else if (result[0].pass_hash == req.params.pass) {
                res.status(200).json(result[0].UID);
             }
             else {
@@ -83,7 +87,7 @@ router.get('/auth/:uname/:pass', async (req, res) => {
          }
       });
 
-   } catch (error) {
+   } catch {
       res.status(401).send();
    }
 
