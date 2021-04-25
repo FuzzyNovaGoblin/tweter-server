@@ -65,23 +65,27 @@ router.get('/allusers', async (req, res) => {
 
 router.get('/auth/:uname/:pass', async (req, res) => {
 
+   try {
+      let sql = `SELECT UID, pass_hash FROM user WHERE UNAME = '${req.params.uname}'`;
 
-   let sql = `SELECT UID, pass_hash FROM user WHERE UNAME = '${req.params.uname}'`;
-
-   mysqlcon.query(sql, function (err, result, fields) {
-      if (err) {
-         res.status(400).json({ err: err });
-      }
-      else {
-         console.log(result[0]);
-         if (result[0].pass_hash == req.params.pass) {
-            res.status(200).json(result[0].UID);
+      mysqlcon.query(sql, function (err, result, fields) {
+         if (err) {
+            res.status(400).json({ err: err });
          }
          else {
-            res.status(401).send();
+            console.log(result[0]);
+            if (result[0].pass_hash == req.params.pass) {
+               res.status(200).json(result[0].UID);
+            }
+            else {
+               res.status(401).send();
+            }
          }
-      }
-   });
+      });
+
+   } catch (error) {
+      res.status(401).send();
+   }
 
 });
 
