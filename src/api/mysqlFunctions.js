@@ -53,7 +53,7 @@ router.get('/followers/:UID', async (req, res) => {
 router.get('/timeline/:UID', async (req, res) => {
 
 
-   let sql = `SELECT PID, post_type_id FROM user JOIN follow ON user.UID = follow.follower_id JOIN post ON follow.followed_id = post.UID WHERE user.UID = ${req.params.UID} ORDER BY post.time`;
+   let sql = `SELECT PID, post_type_id FROM user JOIN follow ON user.UID = follow.follower_id JOIN post ON follow.followed_id = post.UID WHERE user.UID = ${req.params.UID} ORDER BY post.time DESC`;
 
    mysqlcon.query(sql, function (err, result, fields) {
       if (err) {
