@@ -43,9 +43,7 @@ router.get('/followers/:UID', async (req, res) => {
          res.status(400).json({ err: err });
       }
       else {
-
          res.status(200).json(result.map((f) => { return f.followed_id }))
-
       }
    });
 });
