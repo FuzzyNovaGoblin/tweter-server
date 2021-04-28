@@ -63,6 +63,14 @@ GET http://127.0.0.1:5000/api/sql/auth/FuzzyNovaGoblin/qbtt
 GET http://127.0.0.1:5000/api/sql/allusers
 
 ###
+GET http://127.0.0.1:8002/api/sql/followerscount/1
+
+###
+
+
+GET http://127.0.0.1:8002/api/sql/retweets/1
+
+###
 
 
 

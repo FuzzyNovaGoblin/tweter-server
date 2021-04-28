@@ -35,6 +35,34 @@ router.get('/tweet/:PID', async (req, res) => {
    });
 });
 
+router.get('/tweets/:UID', async (req, res) => {
+   let sql = `SELECT PID FROM post where UID = ${req.params.UID} and post_type_id = 0`;
+
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+
+         res.status(200).json(result)
+
+      }
+   });
+});
+
+router.get('/retweets/:UID', async (req, res) => {
+   let sql = `SELECT PID FROM post where UID = ${req.params.UID} and post_type_id = 1`;
+
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+         res.status(200).json(result)
+      }
+   });
+});
+
 router.get('/followers/:UID', async (req, res) => {
    let sql = `SELECT followed_id FROM follow WHERE follower_id = ${req.params.UID}`;
 
@@ -47,6 +75,41 @@ router.get('/followers/:UID', async (req, res) => {
       }
    });
 });
+
+
+
+
+router.get('/followerscount/:UID', async (req, res) => {
+   let sql = `select count(*) as num from follow where follower_id = ${req.params.UID}`;
+   let sql2 = `select count(*) as num from follow where followed_id = ${req.params.UID}`;
+   let data = {};
+   mysqlcon.query(sql, function (err, result, fields) {
+      if (err) {
+         res.status(400).json({ err: err });
+         return
+      }
+      else {
+         data['following'] = result[0].num;
+
+
+         mysqlcon.query(sql2, function (err, result, fields) {
+            if (err) {
+               res.status(400).json({ err: err });
+               return
+            }
+            else {
+               data['followed'] = result[0].num;
+               res.status(200).json(data)
+            }
+         });
+
+      }
+   });
+
+});
+
+
+
 
 router.get('/timeline/:UID', async (req, res) => {
 
@@ -265,6 +328,9 @@ router.delete('/:PID', async (req, res) => {
       }
    });
 });
+
+
+
 
 
 
