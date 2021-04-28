@@ -330,20 +330,52 @@ router.delete('/:PID', async (req, res) => {
 });
 
 router.get('/likes/:UID', async (req, res) => {
-   let sql = `SELECT * from likes where UID = ${req.params.UID}`;
+   let sql = `SELECT likes.PID, post_type_id from likes join post on post.PID = likes.PID where likes.UID = ${req.params.UID}`;
    mysqlcon.query(sql, (err, result, fields) => {
       if (err) {
          res.status(400).json({ err: err });
       }
       else {
-         console.log(result.map((v) => { v }));
-         result.map((v) => { v.PID})
-         res.status(200).json(result);
+         res.status(200).json(result.map((v) => { return [v.PID, v.post_type_id]; }));
       }
    })
 });
 
+router.post('/like', async (req, res) => {
+   try {
+      let sql1 = `INSERT INTO likes (UID, PID) VALUES ('${req.body.UID}','${req.body.PID}')`;
+      mysqlcon.query(sql1, function (err, result) {
+         if (err) {
+            res.status(400).json({ err: err });
+         }
+         else {
+            res.status(201).send();
+         }
+      });
 
+   }
+   catch {
+      res.status(500);
+   }
+});
+
+router.post('/unlike', async (req, res) => {
+   try {
+      let sql1 = `DELETE from likes where UID = '${req.body.UID}' and PID = '${req.body.PID}'`;
+      mysqlcon.query(sql1, function (err, result) {
+         if (err) {
+            res.status(400).json({ err: err });
+         }
+         else {
+            res.status(201).send();
+         }
+      });
+
+   }
+   catch {
+      res.status(500);
+   }
+});
 
 
 

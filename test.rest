@@ -76,7 +76,21 @@ GET http://127.0.0.1:8002/api/sql/likes/1
 
 ###
 
+###
 
+
+POST http://127.0.0.1:8002/api/sql/like
+Content-Type: application/json
+
+{"UID":1,"PID":1}
+
+###
+POST http://127.0.0.1:8002/api/sql/unlike
+Content-Type: application/json
+
+{"UID":1,"PID":1}
+
+###
 
 #################################
 
