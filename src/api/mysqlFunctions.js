@@ -329,6 +329,20 @@ router.delete('/:PID', async (req, res) => {
    });
 });
 
+router.get('/likes/:UID', async (req, res) => {
+   let sql = `SELECT * from likes where UID = ${req.params.UID}`;
+   mysqlcon.query(sql, (err, result, fields) => {
+      if (err) {
+         res.status(400).json({ err: err });
+      }
+      else {
+         console.log(result.map((v) => { v }));
+         result.map((v) => { v.PID})
+         res.status(200).json(result);
+      }
+   })
+});
+
 
 
 

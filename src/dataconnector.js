@@ -2,9 +2,9 @@ var mysql = require('mysql');
 
 const sqlcon = mysql.createConnection({
    host: "127.0.0.1",
-   user: process.env.SQLUSER ||"monty",
-   password: process.env.SQLPASS ||"some_pass",
-   database: "twater"
+   user: process.env.SQLUSER ||"twetajnd_fuzzy",
+   password: process.env.SQLPASS ||"nVcjBAWs$&XH901c3YVJ",
+   database: "twetajnd_twater"
 });
 
 sqlcon.connect(function (err) {
